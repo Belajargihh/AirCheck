@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analisis Udara - AirCheck</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        textarea:focus {
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Loading Spinner */
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Slide down animation */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-down {
+            animation: slideDown 0.5s ease-out forwards;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body
+    class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-50 transition-colors duration-300 no-print">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="/" class="flex items-center gap-2 cursor-pointer">
+                <div class="bg-blue-500 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-wind text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-tight">AirCheck</span>
+            </a>
+
+            <div class="flex items-center gap-4">
+                <a href="/"
+                    class="hidden md:inline-flex items-center gap-2 text-slate-600 dark:text-slate-300 hover:text-blue-500 transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Beranda</span>
+                </a>
+
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle"
+                    class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                    <i class="fa-solid fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fa-solid fa-moon text-blue-300 hidden dark:inline"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-1 px-4 py-10">
+        <div class="container mx-auto max-w-4xl">
+
+            <!-- Analysis Form Card -->
+            <div class="relative fade-in">
+                <!-- Background Blobs -->
+                <div
+                    class="absolute top-0 -left-10 w-72 h-72 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-50 animate-blob pointer-events-none">
+                </div>
+                <div
+                    class="absolute bottom-0 -right-10 w-72 h-72 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-50 animate-blob animation-delay-2000 pointer-events-none">
+                </div>
+
+                <!-- Analysis Card -->
+                <div
+                    class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden">
+
+                    <!-- Header -->
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-8 text-white text-center">
+                        <div
+                            class="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-sm">
+                            <i class="fa-solid fa-magnifying-glass-chart text-4xl"></i>
+                        </div>
+                        <h1 class="text-3xl font-bold mb-2">Analisis Kualitas Udara</h1>
+                        <p class="text-white/80">Deskripsikan kondisi udara untuk mendapatkan hasil analisis</p>
+                    </div>
+
+                    <!-- Form -->
+                    <form id="analysis-form" class="p-8 md:p-10">
+                        <div class="space-y-6">
+                            <!-- Question -->
+                            <div>
+                                <label class="block text-slate-700 dark:text-slate-300 font-semibold mb-2 text-lg">
+                                    <i class="fa-solid fa-cloud mr-2 text-blue-500"></i>
+                                    Bagaimana kondisi udara di sekitar Anda?
+                                </label>
+                                <p class="text-sm text-slate-400 dark:text-slate-500 mb-4">
+                                    Jelaskan apa yang Anda lihat, cium, atau rasakan terkait kondisi udara saat ini.
+                                </p>
+                            </div>
+
+                            <!-- Input Area with Voice Button -->
+                            <div class="relative">
+                                <textarea id="user-input" name="deskripsi" rows="5" required
+                                    class="w-full p-5 pr-16 rounded-2xl border-2 border-slate-200 dark:border-slate-600 bg-slate-50 dark:bg-slate-700 focus:border-blue-500 focus:ring-0 outline-none transition text-slate-700 dark:text-slate-200 text-lg resize-none placeholder-slate-400 dark:placeholder-slate-500"
+                                    placeholder="Contoh: Langit terlihat gelap dan berdebu, ada bau asap menyengat, dada terasa sedikit sesak..."></textarea>
+
+                                <!-- Voice Input Button -->
+                                <button type="button" id="voice-btn" onclick="toggleVoiceInput()"
+                                    class="absolute right-3 top-3 w-12 h-12 bg-blue-500 hover:bg-blue-600 text-white rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:scale-110"
+                                    title="Input dengan suara">
+                                    <i class="fa-solid fa-microphone text-lg" id="voice-icon"></i>
+                                </button>
+
+                                <!-- Recording Indicator -->
+                                <div id="recording-indicator"
+                                    class="hidden absolute right-3 top-3 w-12 h-12 bg-red-500 text-white rounded-full flex items-center justify-center shadow-lg animate-pulse">
+                                    <i class="fa-solid fa-stop text-lg"></i>
+                                </div>
+                            </div>
+
+                            <!-- Voice Status -->
+                            <div id="voice-status"
+                                class="hidden mt-2 text-sm text-blue-500 dark:text-blue-400 flex items-center gap-2">
+                                <div class="flex gap-1">
+                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"
+                                        style="animation-delay: 0.2s;"></div>
+                                    <div class="w-2 h-2 bg-red-500 rounded-full animate-pulse"
+                                        style="animation-delay: 0.4s;"></div>
+                                </div>
+                                <span>Mendengarkan... Silakan berbicara</span>
+                            </div>
+
+                            <!-- Quick Examples -->
+                            <div>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">
+                                    <i class="fa-solid fa-lightbulb text-yellow-500 mr-1"></i> Contoh cepat:
+                                </p>
+                                <div class="flex flex-wrap gap-2">
+                                    <button type="button"
+                                        onclick="setExample('Udara segar dan bersih, langit cerah, bernapas normal')"
+                                        class="px-4 py-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full text-sm hover:bg-green-200 dark:hover:bg-green-900/50 transition">
+                                        <i class="fa-solid fa-face-smile mr-1"></i> Baik
+                                    </button>
+                                    <button type="button"
+                                        onclick="setExample('Ada sedikit kabut tipis, bau kendaraan, mata agak perih')"
+                                        class="px-4 py-2 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400 rounded-full text-sm hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition">
+                                        <i class="fa-solid fa-face-meh mr-1"></i> Sedang
+                                    </button>
+                                    <button type="button"
+                                        onclick="setExample('Kabut sangat tebal, bau asap menyengat, sesak napas parah')"
+                                        class="px-4 py-2 bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 rounded-full text-sm hover:bg-red-200 dark:hover:bg-red-900/50 transition">
+                                        <i class="fa-solid fa-face-dizzy mr-1"></i> Tidak Sehat
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Submit Button -->
+                            <button type="submit" id="submit-btn"
+                                class="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold py-5 rounded-2xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1 flex justify-center items-center gap-3 text-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none">
+                                <span id="btn-text">
+                                    <i class="fa-solid fa-microchip"></i>
+                                    Analisis dengan Naive Bayes
+                                </span>
+                                <span id="btn-loading" class="hidden items-center gap-2">
+                                    <div class="loader"></div>
+                                    Memproses...
+                                </span>
+                            </button>
+                        </div>
+                    </form>
+
+                    <!-- Info Footer -->
+                    <div class="px-8 pb-8">
+                        <div
+                            class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-4">
+                            <div class="flex items-start gap-3">
+                                <div
+                                    class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white flex-shrink-0">
+                                    <i class="fa-solid fa-brain text-sm"></i>
+                                </div>
+                                <div class="text-sm text-slate-600 dark:text-slate-400">
+                                    <p class="font-semibold text-blue-700 dark:text-blue-400 mb-1">Proses Analisis:</p>
+                                    <p>Input Anda akan diproses melalui <b>NLP</b> (Case Folding → Tokenizing → Stopword
+                                        → Stemming) kemudian diklasifikasi menggunakan <b>Naive Bayes</b>.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section (Initially Hidden) -->
+            <div id="results-section" class="hidden mt-8">
+                <div id="results-content"
+                    class="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden slide-down">
+                    <!-- Results will be injected here via JavaScript -->
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-4 mt-6 no-print">
+                    <button onclick="resetForm()"
+                        class="flex-1 bg-slate-200 dark:bg-slate-700 hover:bg-slate-300 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-300 font-semibold py-4 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-rotate-left"></i> Analisis Lagi
+                    </button>
+                    <button onclick="window.print()"
+                        class="flex-1 border-2 border-blue-500 text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 font-semibold py-4 rounded-xl transition flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-print"></i> Cetak Hasil
+                    </button>
+                </div>
+            </div>
+
+            <!-- Back Button Mobile -->
+            <div class="text-center mt-6 md:hidden no-print">
+                <a href="/"
+                    class="inline-flex items-center gap-2 text-slate-500 dark:text-slate-400 hover:text-blue-500 transition">
+                    <i class="fa-solid fa-arrow-left"></i>
+                    <span>Kembali ke Beranda</span>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+        class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 mt-auto transition-colors duration-300 no-print">
+        <div class="container mx-auto px-6 py-4 text-center text-slate-500 dark:text-slate-400 text-sm">
+            <p>&copy; 2026 AirCheck - Teknik Informatika UNAMIN Sorong.</p>
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Dark Mode
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' ||
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        initTheme();
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+
+        // Set example text
+        function setExample(text) {
+            document.getElementById('user-input').value = text;
+            document.getElementById('user-input').focus();
+        }
+
+        // ============= VOICE INPUT (Speech-to-Text) =============
+        let recognition = null;
+        let isRecording = false;
+
+        // Check if browser supports Speech Recognition
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        if (SpeechRecognition) {
+            recognition = new SpeechRecognition();
+            recognition.lang = 'id-ID'; // Indonesian
+            recognition.continuous = true;
+            recognition.interimResults = true;
+
+            recognition.onstart = function () {
+                isRecording = true;
+                document.getElementById('voice-btn').classList.add('hidden');
+                document.getElementById('recording-indicator').classList.remove('hidden');
+                document.getElementById('voice-status').classList.remove('hidden');
+            };
+
+            recognition.onend = function () {
+                isRecording = false;
+                document.getElementById('voice-btn').classList.remove('hidden');
+                document.getElementById('recording-indicator').classList.add('hidden');
+                document.getElementById('voice-status').classList.add('hidden');
+            };
+
+            recognition.onresult = function (event) {
+                let finalTranscript = '';
+                let interimTranscript = '';
+
+                for (let i = event.resultIndex; i < event.results.length; i++) {
+                    const transcript = event.results[i][0].transcript;
+                    if (event.results[i].isFinal) {
+                        finalTranscript += transcript;
+                    } else {
+                        interimTranscript += transcript;
+                    }
+                }
+
+                const userInput = document.getElementById('user-input');
+                if (finalTranscript) {
+                    // Append to existing text
+                    if (userInput.value && !userInput.value.endsWith(' ')) {
+                        userInput.value += ' ';
+                    }
+                    userInput.value += finalTranscript;
+                }
+            };
+
+            recognition.onerror = function (event) {
+                console.error('Speech recognition error:', event.error);
+                isRecording = false;
+                document.getElementById('voice-btn').classList.remove('hidden');
+                document.getElementById('recording-indicator').classList.add('hidden');
+                document.getElementById('voice-status').classList.add('hidden');
+
+                if (event.error === 'not-allowed') {
+                    alert('Izin mikrofon ditolak. Silakan izinkan akses mikrofon di pengaturan browser.');
+                } else if (event.error === 'no-speech') {
+                    alert('Tidak ada suara terdeteksi. Silakan coba lagi.');
+                }
+            };
+        }
+
+        function toggleVoiceInput() {
+            if (!SpeechRecognition) {
+                alert('Maaf, browser Anda tidak mendukung fitur voice input. Gunakan Chrome atau Edge terbaru.');
+                return;
+            }
+
+            if (isRecording) {
+                recognition.stop();
+            } else {
+                recognition.start();
+            }
+        }
+
+        // Also allow clicking on recording indicator to stop
+        document.getElementById('recording-indicator').addEventListener('click', function () {
+            if (isRecording && recognition) {
+                recognition.stop();
+            }
+        });
+
+        // Form submission with AJAX
+        document.getElementById('analysis-form').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const submitBtn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const btnLoading = document.getElementById('btn-loading');
+            const userInput = document.getElementById('user-input').value;
+
+            if (!userInput.trim()) {
+                alert('Silakan masukkan deskripsi kondisi udara.');
+                return;
+            }
+
+            // Show loading state
+            submitBtn.disabled = true;
+            btnText.classList.add('hidden');
+            btnLoading.classList.remove('hidden');
+            btnLoading.classList.add('flex');
+
+            try {
+                const formData = new FormData();
+                formData.append('deskripsi', userInput);
+
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    alert(data.message);
+                } else {
+                    displayResults(data);
+                }
+            } catch (error) {
+                alert('Terjadi kesalahan. Silakan coba lagi.');
+                console.error(error);
+            } finally {
+                // Reset button
+                submitBtn.disabled = false;
+                btnText.classList.remove('hidden');
+                btnLoading.classList.add('hidden');
+                btnLoading.classList.remove('flex');
+            }
+        });
+
+        // Display results
+        function displayResults(data) {
+            const resultsSection = document.getElementById('results-section');
+            const resultsContent = document.getElementById('results-content');
+
+            // Determine colors based on quality
+            let headerBg, iconClass, textColor, bgColor, borderColor;
+            if (data.kualitas === 'Baik') {
+                headerBg = 'bg-green-500';
+                iconClass = 'fa-face-smile';
+                textColor = 'text-green-600 dark:text-green-400';
+                bgColor = 'bg-green-50 dark:bg-green-900/30';
+                borderColor = 'border-green-500';
+            } else if (data.kualitas === 'Sedang') {
+                headerBg = 'bg-yellow-500';
+                iconClass = 'fa-face-meh';
+                textColor = 'text-yellow-600 dark:text-yellow-400';
+                bgColor = 'bg-yellow-50 dark:bg-yellow-900/30';
+                borderColor = 'border-yellow-500';
+            } else {
+                headerBg = 'bg-red-500';
+                iconClass = 'fa-face-dizzy';
+                textColor = 'text-red-600 dark:text-red-400';
+                bgColor = 'bg-red-50 dark:bg-red-900/30';
+                borderColor = 'border-red-500';
+            }
+
+            // Build probability bars
+            let probBars = '';
+            for (const [label, prob] of Object.entries(data.probabilitas)) {
+                let barColor = label === 'Baik' ? 'bg-green-500' : (label === 'Sedang' ? 'bg-yellow-500' : 'bg-red-500');
+                let isActive = label === data.kualitas;
+                probBars += `
+                    <div class="mb-3">
+                        <div class="flex justify-between text-sm mb-1">
+                            <span class="${isActive ? 'font-bold' : ''} text-slate-700 dark:text-slate-300">${label}</span>
+                            <span class="${isActive ? 'font-bold ' + textColor : 'text-slate-500'}">${prob}%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-600 rounded-full h-3">
+                            <div class="${barColor} h-3 rounded-full transition-all duration-500" style="width: ${prob}%"></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Build saran list
+            let saranList = data.saran.map(s => `
+                <li class="flex items-start gap-2 text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-check-circle ${textColor} mt-1 flex-shrink-0"></i>
+                    <span>${s}</span>
+                </li>
+            `).join('');
+
+            // Inject HTML
+            resultsContent.innerHTML = `
+                <!-- Result Header -->
+                <div class="${headerBg} p-8 text-center text-white">
+                    <div class="inline-block bg-white/20 p-4 rounded-full mb-4 backdrop-blur-sm">
+                        <i class="fa-solid ${iconClass} text-4xl"></i>
+                    </div>
+                    <h2 class="text-xl font-medium opacity-90">Hasil Diagnosa Kualitas Udara</h2>
+                    <h1 class="text-4xl font-bold mt-2 tracking-wide uppercase">${data.kualitas}</h1>
+                    <p class="mt-2 text-sm bg-black/20 inline-block px-3 py-1 rounded-full">
+                        Probabilitas: ${data.probabilitas[data.kualitas]}%
+                    </p>
+                </div>
+                
+                <!-- Result Content -->
+                <div class="p-8 space-y-6">
+                    <!-- Probability Bars -->
+                    <div class="${bgColor} p-5 rounded-xl border ${borderColor}">
+                        <h4 class="font-bold text-slate-700 dark:text-slate-300 mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-bar text-blue-500"></i> Probabilitas Naive Bayes:
+                        </h4>
+                        ${probBars}
+                    </div>
+                    
+                    <!-- Input User -->
+                    <div class="bg-slate-50 dark:bg-slate-700 p-5 rounded-xl border border-slate-200 dark:border-slate-600">
+                        <h4 class="font-bold text-slate-700 dark:text-slate-300 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-quote-left text-blue-500"></i> Input Pengguna:
+                        </h4>
+                        <p class="text-slate-600 dark:text-slate-400 italic">"${data.input_text}"</p>
+                    </div>
+                    
+                    <!-- NLP Processing -->
+                    <div class="bg-blue-50 dark:bg-blue-900/20 p-5 rounded-xl border border-blue-200 dark:border-blue-800">
+                        <h4 class="font-bold text-blue-700 dark:text-blue-400 mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-blue-500"></i> Hasil Preprocessing NLP:
+                        </h4>
+                        <p class="text-slate-700 dark:text-slate-300 font-mono text-sm bg-white dark:bg-slate-800 p-3 rounded-lg">${data.processed_text}</p>
+                    </div>
+                    
+                    <!-- Saran -->
+                    <div>
+                        <h4 class="font-bold text-slate-800 dark:text-white text-lg mb-3 flex items-center gap-2">
+                            <i class="fa-solid fa-user-doctor text-blue-500"></i> Saran & Rekomendasi:
+                        </h4>
+                        <ul class="space-y-3 bg-white dark:bg-slate-700 p-5 rounded-xl border border-slate-100 dark:border-slate-600">
+                            ${saranList}
+                        </ul>
+                    </div>
+                </div>
+            `;
+
+            // Show results and scroll to it
+            resultsSection.classList.remove('hidden');
+            resultsContent.classList.remove('slide-down');
+            void resultsContent.offsetWidth; // Trigger reflow
+            resultsContent.classList.add('slide-down');
+
+            setTimeout(() => {
+                resultsSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+        }
+
+        // Reset form
+        function resetForm() {
+            document.getElementById('user-input').value = '';
+            document.getElementById('results-section').classList.add('hidden');
+            document.getElementById('user-input').focus();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+
+</html>

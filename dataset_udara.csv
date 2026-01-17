@@ -1,0 +1,296 @@
+jawaban_user,label_kualitas
+"Udara terasa segar, tidak ada bau, langit cerah dan bersih",Baik
+"Langit biru cerah, udara bersih, nyaman untuk bernapas",Baik
+"Tidak ada debu, tidak ada asap, udara sangat segar",Baik
+"Cuaca cerah, udara jernih, jarak pandang sangat jauh",Baik
+"Udara terasa ringan, tidak ada polusi, sangat nyaman",Baik
+"Langit cerah tanpa kabut, udara segar menyegarkan",Baik
+"Tidak ada bau tidak sedap, udara bersih dan sejuk",Baik
+"Jarak pandang sangat baik, langit biru cerah",Baik
+"Udara murni, tidak ada asap kendaraan, sangat segar",Baik
+"Cuaca bagus, tidak berdebu, udara segar sekali",Baik
+"Tidak ada polusi, langit jernih, udara nyaman dihirup",Baik
+"Udara bersih tanpa bau, sangat menyegarkan",Baik
+"Langit sangat cerah, tidak ada kabut sama sekali",Baik
+"Udara alami segar, tidak ada gangguan pernapasan",Baik
+"Pemandangan jelas, udara bersih dan sehat",Baik
+"Sedikit berdebu, mata agak perih, jarak pandang normal",Sedang
+"Ada sedikit kabut tipis, udara masih bisa dihirup",Sedang
+"Terasa ada debu halus, tapi masih nyaman",Sedang
+"Langit agak mendung, ada sedikit polusi",Sedang
+"Udara kurang segar, ada bau kendaraan samar",Sedang
+"Jarak pandang berkurang sedikit, ada kabut tipis",Sedang
+"Mata sedikit perih, udara terasa kurang bersih",Sedang
+"Ada debu berterbangan, tapi masih bisa beraktivitas",Sedang
+"Langit tidak terlalu cerah, udara terasa berat",Sedang
+"Sedikit batuk ringan, ada debu di udara",Sedang
+"Kabut tipis di pagi hari, udara kurang segar",Sedang
+"Bau asap samar dari kendaraan, agak tidak nyaman",Sedang
+"Jarak pandang sekitar 5 kilometer, ada polusi ringan",Sedang
+"Udara terasa lebih berat dari biasanya",Sedang
+"Sedikit berdebu, perlu pakai masker untuk nyaman",Sedang
+"Langit kelabu tipis, polusi ringan terasa",Sedang
+"Mata agak gatal, udara tidak terlalu bersih",Sedang
+"Ada asap tipis, tapi masih bisa beraktivitas normal",Sedang
+"Udara terasa kotor ringan, kurang segar",Sedang
+"Bau asap menyengat, dada sesak, langit gelap",Tidak Sehat
+"Kabut tebal pekat, jarak pandang sangat pendek",Tidak Sehat
+"Susah bernapas, banyak asap di udara, sangat berbahaya",Tidak Sehat
+"Langit tertutup asap tebal, mata sangat perih",Tidak Sehat
+"Batuk-batuk terus, udara sangat terpolusi",Tidak Sehat
+"Asap kebakaran hutan, sangat tidak sehat untuk keluar",Tidak Sehat
+"Jarak pandang kurang dari 1 kilometer, kabut asap pekat",Tidak Sehat
+"Dada terasa sesak, sulit bernapas, polusi parah",Tidak Sehat
+"Bau menyengat seperti terbakar, langit oranye gelap",Tidak Sehat
+"Iritasi mata parah, tenggorokan sakit, asap tebal",Tidak Sehat
+"Polusi sangat tinggi, wajib pakai masker N95",Tidak Sehat
+"Udara sangat berbahaya, jangan keluar rumah",Tidak Sehat
+"Kabut asap dari pembakaran lahan, sangat mencekik",Tidak Sehat
+"Langit tertutup debu tebal, sulit melihat jauh",Tidak Sehat
+"Asap kendaraan sangat pekat, pusing dan mual",Tidak Sehat
+"Hidung tersumbat, batuk parah, polusi ekstrem",Tidak Sehat
+"Jarak pandang nol, asap menutupi segalanya",Tidak Sehat
+"Mata berair terus, tenggorokan terbakar, asap pekat",Tidak Sehat
+"Sangat berbahaya keluar rumah, polusi maksimal",Tidak Sehat
+"Debu dan asap bercampur, sulit bernapas dengan normal",Tidak Sehat
+"Asap tebal menyelimuti lingkungan, kabut pekat membuat warga sesak napas",Tidak Sehat
+"Kabut asap sangat pekat pagi ini, udara sulit dihirup dan sesak napas",Tidak Sehat
+"Warga mengeluh sesak napas karena asap bercampur kabut tebal",Tidak Sehat
+"Asap dari pembakaran membuat kabut pekat dan menyebabkan sesak napas",Tidak Sehat
+"Udara penuh asap, kabut menutupi pandangan, dada terasa sesak napas",Tidak Sehat
+"Kabut asap semakin parah hingga banyak warga mengalami sesak napas",Tidak Sehat
+"Asap kendaraan terperangkap kabut membuat napas terasa berat dan sesak napas",Tidak Sehat
+"Sesak napas dirasakan hampir semua warga akibat kabut dan asap pekat",Tidak Sehat
+"Asap menyengat bercampur kabut menyebabkan sesak napas dan iritasi",Tidak Sehat
+"Kabut tebal berisi asap membuat udara berbahaya dan sesak napas",Tidak Sehat
+"Warga sulit bernapas karena asap dan kabut yang sangat pekat",Tidak Sehat
+"Asap kebakaran bercampur kabut menyebabkan sesak napas berkepanjangan",Tidak Sehat
+"Kabut asap membuat jarak pandang pendek dan napas terasa sesak",Tidak Sehat
+"Asap hitam dan kabut tebal membuat dada terasa sesak napas",Tidak Sehat
+"Warga mengeluh pusing dan sesak napas akibat asap dalam kabut",Tidak Sehat
+"Kabut yang membawa asap membuat udara mencekik dan sesak napas",Tidak Sehat
+"Asap pekat tertahan kabut menyebabkan gangguan napas serius",Tidak Sehat
+"Sesak napas semakin sering dirasakan sejak kabut asap muncul",Tidak Sehat
+"Asap dan kabut tidak kunjung hilang, membuat warga sesak napas",Tidak Sehat
+"Kabut asap pagi hari sangat pekat hingga menimbulkan sesak napas",Tidak Sehat
+"Asap dari luar daerah terbawa kabut dan menyebabkan sesak napas",Tidak Sehat
+"Warga terpaksa memakai masker karena kabut dan asap menyebabkan sesak napas",Tidak Sehat
+"Asap beracun dalam kabut membuat pernapasan terasa sangat sesak",Tidak Sehat
+"Kabut asap ekstrem membuat udara berbahaya dan memicu sesak napas",Tidak Sehat
+"Asap pekat bercampur kabut membuat aktivitas terganggu karena sesak napas",Tidak Sehat
+"Sesak napas dirasakan sejak kabut asap menyelimuti wilayah ini",Tidak Sehat
+"Asap tebal yang terperangkap kabut membuat udara sulit dihirup",Tidak Sehat
+"Kabut dan asap menyebabkan kondisi udara tidak sehat dan sesak napas",Tidak Sehat
+"Warga mengeluh sesak napas parah akibat kabut asap pekat",Tidak Sehat
+"Asap menyelimuti area permukiman, kabut tebal membuat sesak napas",Tidak Sehat
+"Udara segar dan bersih, langit cerah tanpa polusi",Baik
+"Langit biru cerah, udara nyaman untuk bernapas",Baik
+"Tidak ada asap atau debu, udara terasa ringan",Baik
+"Cuaca cerah, udara jernih dan menyegarkan",Baik
+"Udara pagi segar, tidak ada bau kendaraan",Baik
+"Langit cerah bersih, jarak pandang sangat jauh",Baik
+"Udara bersih dan sejuk, sangat nyaman",Baik
+"Tidak ada polusi, udara terasa sehat",Baik
+"Langit cerah tanpa kabut, udara segar",Baik
+"Udara alami dan bersih, tidak ada gangguan",Baik
+"Cuaca sangat baik, udara segar dihirup",Baik
+"Tidak ada bau asap, udara sangat bersih",Baik
+"Udara segar dan ringan, langit biru",Baik
+"Pemandangan jelas, udara sehat",Baik
+"Udara bersih tanpa polusi",Baik
+"Langit cerah dan udara menyenangkan",Baik
+"Udara sangat segar hari ini",Baik
+"Tidak ada debu atau asap",Baik
+"Udara jernih dan nyaman",Baik
+"Cuaca cerah dan udara sehat",Baik
+"Langit biru tanpa gangguan polusi",Baik
+"Udara segar alami",Baik
+"Tidak ada bau menyengat",Baik
+"Udara bersih sepanjang hari",Baik
+"Langit cerah dan bersih",Baik
+"Udara sehat untuk aktivitas luar",Baik
+"Udara jernih tanpa gangguan",Baik
+"Cuaca bagus dan udara segar",Baik
+"Udara bersih tanpa kabut",Baik
+"Pagi cerah dengan udara segar",Baik
+"Udara terasa sangat bersih",Baik
+"Tidak ada polusi udara",Baik
+"Langit cerah biru terang",Baik
+"Udara alami tanpa bau",Baik
+"Udara nyaman sepanjang hari",Baik
+"Langit cerah bersih tanpa debu",Baik
+"Udara sehat dan segar",Baik
+"Tidak ada asap kendaraan",Baik
+"Udara jernih dan sejuk",Baik
+"Cuaca cerah tanpa polusi",Baik
+"Udara bersih dan ringan",Baik
+"Langit cerah pagi hari",Baik
+"Udara segar dan menenangkan",Baik
+"Tidak ada kabut sama sekali",Baik
+"Udara sehat dan jernih",Baik
+"Cuaca bersih dan segar",Baik
+"Langit cerah tanpa gangguan",Baik
+"Udara nyaman dihirup",Baik
+"Udara murni dan bersih",Baik
+"Cuaca cerah sepanjang hari",Baik
+"Udara segar bebas polusi",Baik
+"Langit biru dan udara jernih",Baik
+"Udara sehat untuk semua usia",Baik
+"Tidak ada bau tidak sedap",Baik
+"Udara bersih dan segar sekali",Baik
+"Cuaca baik dan udara nyaman",Baik
+"Langit cerah tanpa asap",Baik
+"Udara alami sangat segar",Baik
+"Udara jernih dan sehat",Baik
+"Tidak ada debu di udara",Baik
+"Langit cerah bersinar",Baik
+"Udara bersih menyegarkan",Baik
+"Cuaca cerah tanpa kabut",Baik
+"Udara sehat dan ringan",Baik
+"Udara segar sepanjang pagi",Baik
+"Tidak ada polusi terlihat",Baik
+"Langit cerah dan luas",Baik
+"Udara nyaman dan segar",Baik
+"Cuaca bersih dan sehat",Baik
+"Udara jernih tanpa bau",Baik
+"Tidak ada asap sama sekali",Baik
+"Langit cerah dan terang",Baik
+"Udara segar alami sekali",Baik
+"Cuaca bagus dan bersih",Baik
+"Udara sehat tanpa gangguan",Baik
+"Langit biru cerah bersih",Baik
+"Udara bersih dan aman",Baik
+"Cuaca cerah dan segar",Baik
+"Udara nyaman dan ringan",Baik
+"Tidak ada kabut atau asap",Baik
+"Udara jernih dan menyenangkan",Baik
+"Langit cerah sepanjang hari",Baik
+"Udara segar dan sehat",Baik
+"Cuaca sangat cerah",Baik
+"Udara bersih bebas polusi",Baik
+"Langit cerah dan indah",Baik
+"Udara nyaman untuk bernapas",Baik
+"Udara jernih tanpa gangguan",Baik
+"Cuaca baik dan bersih",Baik
+"Udara segar dan murni",Baik
+"Ada sedikit kabut tipis di pagi hari",Sedang
+"Udara agak berdebu namun masih nyaman",Sedang
+"Bau asap ringan dari kendaraan",Sedang
+"Langit agak kelabu dengan polusi ringan",Sedang
+"Udara terasa lebih berat dari biasanya",Sedang
+"Kabut tipis muncul saat pagi",Sedang
+"Sedikit asap terlihat di kejauhan",Sedang
+"Udara kurang segar tapi masih aman",Sedang
+"Debu halus terasa di udara",Sedang
+"Bau kendaraan samar tercium",Sedang
+"Langit tidak terlalu cerah",Sedang
+"Udara agak pengap siang hari",Sedang
+"Kabut tipis mengurangi jarak pandang",Sedang
+"Ada asap tipis namun tidak pekat",Sedang
+"Udara terasa kurang bersih",Sedang
+"Mata agak perih karena debu",Sedang
+"Polusi ringan terasa di jalan raya",Sedang
+"Langit mendung tipis dan berdebu",Sedang
+"Sedikit batuk akibat debu",Sedang
+"Udara agak kotor ringan",Sedang
+"Bau asap tipis di sore hari",Sedang
+"Debu kendaraan terasa saat ramai",Sedang
+"Kabut ringan muncul sebentar",Sedang
+"Udara tidak terlalu segar",Sedang
+"Langit kelabu tipis",Sedang
+"Sedikit iritasi mata",Sedang
+"Ada kabut pagi namun cepat hilang",Sedang
+"Asap kendaraan ringan terasa",Sedang
+"Udara agak berat dihirup",Sedang
+"Polusi ringan di area padat",Sedang
+"Sedikit debu di udara",Sedang
+"Langit agak buram",Sedang
+"Bau asap samar terasa",Sedang
+"Udara kurang jernih",Sedang
+"Debu ringan beterbangan",Sedang
+"Kabut tipis saat subuh",Sedang
+"Polusi ringan dari lalu lintas",Sedang
+"Udara agak pengap",Sedang
+"Langit tidak sepenuhnya cerah",Sedang
+"Asap tipis terlihat",Sedang
+"Debu halus terasa di hidung",Sedang
+"Udara kurang nyaman",Sedang
+"Polusi ringan siang hari",Sedang
+"Kabut tipis menutupi area",Sedang
+"Sedikit bau terbakar",Sedang
+"Udara terasa lebih kotor",Sedang
+"Debu ringan di jalan",Sedang
+"Langit kusam tipis",Sedang
+"Polusi ringan tercium",Sedang
+"Ada asap ringan",Sedang
+"Udara tidak segar sepenuhnya",Sedang
+"Kabut tipis menyelimuti pagi",Sedang
+"Debu halus mengganggu",Sedang
+"Bau asap ringan sore hari",Sedang
+"Langit kelabu ringan",Sedang
+"Udara agak tercemar",Sedang
+"Sedikit iritasi tenggorokan",Sedang
+"Polusi ringan terasa",Sedang
+"Kabut tipis sebentar",Sedang
+"Asap tipis di udara",Sedang
+"Udara terasa kurang bersih",Sedang
+"Debu ringan beterbangan",Sedang
+"Langit agak buram",Sedang
+"Polusi ringan meningkat",Sedang
+"Sedikit gangguan pernapasan",Sedang
+"Ada bau asap tipis",Sedang
+"Kabut ringan pagi hari",Sedang
+"Udara agak berat",Sedang
+"Debu halus di udara",Sedang
+"Langit agak suram",Sedang
+"Polusi ringan terasa jelas",Sedang
+"Sedikit sesak ringan",Sedang
+"Asap samar terlihat",Sedang
+"Udara tidak terlalu sehat",Sedang
+"Kabut tipis muncul kembali",Sedang
+"Debu ringan terasa",Sedang
+"Langit tidak cerah",Sedang
+"Polusi ringan berlanjut",Sedang
+"Sedikit batuk ringan",Sedang
+"Ada bau asap samar",Sedang
+"Udara agak pengap",Sedang
+"Kabut tipis dan asap ringan",Sedang
+"Debu kendaraan terasa",Sedang
+"Langit agak kelabu",Sedang
+"Polusi ringan di udara",Sedang
+"Sedikit gangguan napas",Sedang
+"Ada asap tipis",Sedang
+"Udara kurang segar",Sedang
+"Kabut ringan menyelimuti",Sedang
+"Debu ringan terasa",Sedang
+"Langit kusam",Sedang
+"Asap tebal menyelimuti area, kabut pekat membuat sesak napas",Tidak Sehat
+"Kabut asap sangat pekat, warga mengalami sesak napas",Tidak Sehat
+"Asap bercampur kabut menyebabkan sesak napas parah",Tidak Sehat
+"Udara penuh asap dan kabut, napas terasa sesak",Tidak Sehat
+"Kabut asap ekstrem membuat sesak napas",Tidak Sehat
+"Asap pekat terjebak kabut, warga sesak napas",Tidak Sehat
+"Kabut tebal berisi asap menyebabkan sesak napas",Tidak Sehat
+"Asap kebakaran bercampur kabut memicu sesak napas",Tidak Sehat
+"Udara sangat berbahaya karena asap dan kabut, sesak napas",Tidak Sehat
+"Asap menyengat dalam kabut membuat sesak napas",Tidak Sehat
+"Kabut asap parah, sulit bernapas dan sesak napas",Tidak Sehat
+"Asap hitam bercampur kabut menyebabkan sesak napas",Tidak Sehat
+"Kabut dan asap pekat membuat dada sesak napas",Tidak Sehat
+"Udara mencekik akibat asap dan kabut, sesak napas",Tidak Sehat
+"Asap pekat tertahan kabut memicu sesak napas",Tidak Sehat
+"Kabut asap ekstrem menyebabkan sesak napas warga",Tidak Sehat
+"Asap tebal dan kabut membuat sesak napas parah",Tidak Sehat
+"Kabut membawa asap beracun, sesak napas",Tidak Sehat
+"Asap kendaraan terperangkap kabut menyebabkan sesak napas",Tidak Sehat
+"Kabut asap pekat, napas sangat sesak",Tidak Sehat
+"Asap menyelimuti kota, kabut tebal dan sesak napas",Tidak Sehat
+"Kabut asap tidak hilang, warga sesak napas",Tidak Sehat
+"Asap beracun bercampur kabut, sesak napas",Tidak Sehat
+"Kabut tebal penuh asap membuat sesak napas",Tidak Sehat
+"Asap pekat dan kabut menutup udara, sesak napas",Tidak Sehat
+"Kabut asap parah menyebabkan gangguan napas",Tidak Sehat
+"Asap kebakaran dan kabut membuat sesak napas",Tidak Sehat
+"Kabut asap ekstrem sangat berbahaya dan sesak napas",Tidak Sehat
+"Asap pekat dalam kabut membuat napas sesak",Tidak Sehat
+"Kabut dan asap tidak sehat, sesak napas",Tidak Sehat

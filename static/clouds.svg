@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="cloudGradient1" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#e8f4fc;stop-opacity:0.9" />
+    </linearGradient>
+    <linearGradient id="cloudGradient2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#f0f8ff;stop-opacity:0.95" />
+      <stop offset="100%" style="stop-color:#d4e8f7;stop-opacity:0.85" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Back layer clouds -->
+  <ellipse cx="200" cy="280" rx="180" ry="80" fill="url(#cloudGradient2)"/>
+  <ellipse cx="280" cy="250" rx="120" ry="70" fill="url(#cloudGradient2)"/>
+  <ellipse cx="120" cy="260" rx="100" ry="60" fill="url(#cloudGradient2)"/>
+  
+  <ellipse cx="1300" cy="270" rx="200" ry="90" fill="url(#cloudGradient2)"/>
+  <ellipse cx="1380" cy="240" rx="140" ry="75" fill="url(#cloudGradient2)"/>
+  <ellipse cx="1200" cy="255" rx="110" ry="65" fill="url(#cloudGradient2)"/>
+  
+  <ellipse cx="700" cy="300" rx="160" ry="70" fill="url(#cloudGradient2)"/>
+  <ellipse cx="780" cy="275" rx="100" ry="55" fill="url(#cloudGradient2)"/>
+  
+  <!-- Middle layer clouds -->
+  <ellipse cx="350" cy="290" rx="150" ry="75" fill="url(#cloudGradient1)"/>
+  <ellipse cx="420" cy="260" rx="110" ry="65" fill="url(#cloudGradient1)"/>
+  <ellipse cx="280" cy="275" rx="90" ry="55" fill="url(#cloudGradient1)"/>
+  
+  <ellipse cx="1100" cy="285" rx="170" ry="80" fill="url(#cloudGradient1)"/>
+  <ellipse cx="1180" cy="255" rx="120" ry="70" fill="url(#cloudGradient1)"/>
+  <ellipse cx="1020" cy="270" rx="100" ry="60" fill="url(#cloudGradient1)"/>
+  
+  <!-- Front layer clouds (brightest) -->
+  <ellipse cx="100" cy="310" rx="140" ry="70" fill="#ffffff"/>
+  <ellipse cx="180" cy="285" rx="100" ry="60" fill="#ffffff"/>
+  <ellipse cx="50" cy="295" rx="80" ry="50" fill="#ffffff"/>
+  
+  <ellipse cx="550" cy="305" rx="180" ry="85" fill="#ffffff"/>
+  <ellipse cx="650" cy="275" rx="130" ry="75" fill="#ffffff"/>
+  <ellipse cx="450" cy="290" rx="110" ry="65" fill="#ffffff"/>
+  
+  <ellipse cx="900" cy="310" rx="160" ry="75" fill="#ffffff"/>
+  <ellipse cx="980" cy="280" rx="120" ry="70" fill="#ffffff"/>
+  <ellipse cx="820" cy="295" rx="100" ry="60" fill="#ffffff"/>
+  
+  <ellipse cx="1350" cy="305" rx="150" ry="80" fill="#ffffff"/>
+  <ellipse cx="1420" cy="280" rx="110" ry="65" fill="#ffffff"/>
+  <ellipse cx="1280" cy="290" rx="90" ry="55" fill="#ffffff"/>
+</svg>

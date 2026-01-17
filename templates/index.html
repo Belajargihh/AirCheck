@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AirCheck - Sistem Pakar Kualitas Udara Kota Sorong</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes blob {
+            0% {
+                transform: translate(0px, 0px) scale(1);
+            }
+
+            33% {
+                transform: translate(30px, -50px) scale(1.1);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+
+            100% {
+                transform: translate(0px, 0px) scale(1);
+            }
+        }
+
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+
+        /* FAQ Accordion */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-answer.open {
+            max-height: 500px;
+        }
+
+        /* Typing Animation */
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink {
+            50% {
+                border-color: transparent;
+            }
+        }
+
+        .typing-text {
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 2px solid;
+            animation: typing 2s steps(30) forwards, blink 0.7s step-end infinite;
+        }
+
+        /* Pulse Animation */
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+
+            50% {
+                box-shadow: 0 0 20px 10px rgba(59, 130, 246, 0.2);
+            }
+        }
+
+        .pulse-glow {
+            animation: pulse-glow 2s infinite;
+        }
+
+        /* Floating Animation for Card */
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+        }
+
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Typing Cursor */
+        @keyframes blink-cursor {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+        }
+
+        .typing-cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background-color: currentColor;
+            margin-left: 2px;
+            animation: blink-cursor 0.7s step-end infinite;
+            vertical-align: text-bottom;
+        }
+
+        /* Demo Container */
+        .demo-container {
+            min-height: 280px;
+        }
+
+        /* Fade transitions */
+        .fade-transition {
+            transition: opacity 0.5s ease-in-out;
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 transition-colors duration-300">
+
+    <!-- NAVBAR -->
+    <nav class="bg-white dark:bg-slate-800 shadow-sm sticky top-0 z-50 transition-colors duration-300">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center gap-2 cursor-pointer">
+                <div class="bg-blue-500 text-white p-2 rounded-lg">
+                    <i class="fa-solid fa-wind text-xl"></i>
+                </div>
+                <span class="text-2xl font-bold text-blue-600 dark:text-blue-400 tracking-tight">AirCheck</span>
+            </a>
+
+            <div class="hidden md:flex items-center space-x-6 font-medium text-slate-600 dark:text-slate-300">
+                <a href="#home" class="hover:text-blue-500 transition">Beranda</a>
+                <a href="#about" class="hover:text-blue-500 transition">Tentang</a>
+                <a href="#how-it-works" class="hover:text-blue-500 transition">Cara Kerja</a>
+                <a href="#faq" class="hover:text-blue-500 transition">FAQ</a>
+                <a href="/analisis" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition">
+                    <i class="fa-solid fa-play mr-1"></i> Mulai Analisis
+                </a>
+
+                <!-- Dark Mode Toggle -->
+                <button id="theme-toggle"
+                    class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 transition">
+                    <i class="fa-solid fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fa-solid fa-moon text-blue-300 hidden dark:inline"></i>
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <div class="flex items-center gap-3 md:hidden">
+                <button id="theme-toggle-mobile" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-700">
+                    <i class="fa-solid fa-sun text-yellow-500 dark:hidden"></i>
+                    <i class="fa-solid fa-moon text-blue-300 hidden dark:inline"></i>
+                </button>
+                <button onclick="toggleMobileMenu()" class="text-slate-600 dark:text-slate-300">
+                    <i class="fa-solid fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white dark:bg-slate-800 border-t dark:border-slate-700 px-6 py-4 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()"
+                class="block text-slate-600 dark:text-slate-300 hover:text-blue-500">Beranda</a>
+            <a href="#about" onclick="toggleMobileMenu()"
+                class="block text-slate-600 dark:text-slate-300 hover:text-blue-500">Tentang</a>
+            <a href="#how-it-works" onclick="toggleMobileMenu()"
+                class="block text-slate-600 dark:text-slate-300 hover:text-blue-500">Cara Kerja</a>
+            <a href="#faq" onclick="toggleMobileMenu()"
+                class="block text-slate-600 dark:text-slate-300 hover:text-blue-500">FAQ</a>
+            <a href="/analisis" class="block bg-blue-600 text-white text-center py-2 rounded-lg">Mulai Analisis</a>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main>
+
+        <!-- ================= HERO SECTION ================= -->
+        <section id="home"
+            class="min-h-screen flex items-center bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div class="container mx-auto px-6 py-16 flex flex-col md:flex-row items-center justify-between gap-8">
+                <!-- Text Content -->
+                <div class="flex-1 text-center md:text-left space-y-6 fade-in md:pl-4 lg:pl-8">
+                    <div
+                        class="inline-block px-4 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full text-sm font-semibold mb-2">
+                        <i class="fa-solid fa-location-dot mr-1"></i> Kota Sorong, Papua Barat Daya
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-bold leading-tight text-slate-900 dark:text-white">
+                        Air<span class="text-blue-500">Check</span>
+                    </h1>
+                    <p
+                        class="text-lg md:text-xl text-slate-600 dark:text-slate-400 leading-relaxed max-w-xl mx-auto md:mx-0">
+                        AirCheck membantu masyarakat mengetahui kualitas udara berdasarkan keluhan atau deskripsi
+                        kondisi lingkungan yang dianalisis menggunakan metode <b>Naive Bayes</b> & <b>NLP</b>.
+                    </p>
+                    <div class="pt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start w-full">
+                        <a href="/analisis"
+                            class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-4 px-8 rounded-xl shadow-lg hover:shadow-blue-500/30 transition transform hover:-translate-y-1 flex items-center gap-3">
+                            <span>Mulai Analisis</span>
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                        <a href="#about"
+                            class="bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-semibold py-4 px-8 rounded-xl border border-slate-200 dark:border-slate-600 transition flex items-center gap-3">
+                            <span>Pelajari Lebih</span>
+                            <i class="fa-solid fa-chevron-down"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Animated Analysis Preview Card -->
+                <div class="flex-1 flex justify-center md:justify-end w-full">
+                    <div class="relative w-full max-w-2xl">
+                        <!-- Background Blobs -->
+                        <div
+                            class="absolute top-0 -left-4 w-72 h-72 bg-blue-300 dark:bg-blue-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob">
+                        </div>
+                        <div
+                            class="absolute top-0 -right-4 w-72 h-72 bg-purple-300 dark:bg-purple-600 rounded-full mix-blend-multiply dark:mix-blend-soft-light filter blur-xl opacity-70 animate-blob animation-delay-2000">
+                        </div>
+
+                        <!-- Analysis Preview Card -->
+                        <div
+                            class="relative bg-white dark:bg-slate-800 rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden float-animation w-full">
+                            <!-- Card Header -->
+                            <div class="bg-gradient-to-r from-blue-500 to-purple-600 p-6 text-white">
+                                <div class="flex items-center gap-4">
+                                    <div
+                                        class="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                                        <i class="fa-solid fa-robot text-2xl"></i>
+                                    </div>
+                                    <div>
+                                        <div class="font-bold text-xl">AirCheck AI</div>
+                                        <div class="text-sm opacity-80">Sistem Pakar Kualitas Udara</div>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <div class="w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Body - Typing Animation Demo -->
+                            <div class="p-6 demo-container" id="demo-container">
+                                <!-- Input Section -->
+                                <div class="mb-4">
+                                    <div
+                                        class="text-xs text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1">
+                                        <i class="fa-solid fa-user text-blue-500"></i> Input Pengguna:
+                                    </div>
+                                    <div
+                                        class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl rounded-br-none border-l-4 border-blue-500">
+                                        <p id="typing-input"
+                                            class="text-base text-slate-700 dark:text-slate-300 italic min-h-[48px]">
+                                            <span class="typing-cursor"></span>
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <!-- Processing Section -->
+                                <div id="processing-section" class="mb-4 hidden">
+                                    <div
+                                        class="flex items-center gap-2 text-sm text-slate-500 dark:text-slate-400 py-2">
+                                        <div class="flex gap-1">
+                                            <div class="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce"
+                                                style="animation-delay: 0s;"></div>
+                                            <div class="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce"
+                                                style="animation-delay: 0.1s;"></div>
+                                            <div class="w-2.5 h-2.5 bg-blue-500 rounded-full animate-bounce"
+                                                style="animation-delay: 0.2s;"></div>
+                                        </div>
+                                        <span id="processing-text">Memproses dengan NLP & Naive Bayes...</span>
+                                    </div>
+                                </div>
+
+                                <!-- Result Section -->
+                                <div id="result-section" class="hidden">
+                                    <div
+                                        class="text-xs text-slate-400 dark:text-slate-500 mb-2 flex items-center gap-1">
+                                        <i class="fa-solid fa-chart-pie text-blue-500"></i> Hasil Analisis:
+                                    </div>
+                                    <div id="result-card" class="p-4 rounded-xl border-2 transition-all duration-300">
+                                        <div class="flex items-center gap-4">
+                                            <div id="result-icon"
+                                                class="w-14 h-14 rounded-full flex items-center justify-center text-white text-xl">
+                                                <i class="fa-solid fa-face-dizzy"></i>
+                                            </div>
+                                            <div class="flex-1">
+                                                <div id="result-label" class="font-bold text-xl"></div>
+                                                <div class="flex items-center gap-2 mt-1">
+                                                    <div
+                                                        class="flex-1 bg-slate-200 dark:bg-slate-600 rounded-full h-2.5">
+                                                        <div id="result-bar"
+                                                            class="h-2.5 rounded-full transition-all duration-1000"
+                                                            style="width: 0%"></div>
+                                                    </div>
+                                                    <span id="result-prob" class="text-sm font-semibold"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TENTANG SECTION ================= -->
+        <section id="about" class="py-20 bg-white dark:bg-slate-800 transition-colors duration-300">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span
+                        class="inline-block px-4 py-1 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-full text-sm font-semibold mb-4">
+                        <i class="fa-solid fa-info-circle mr-1"></i> Tentang Kami
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Apa itu AirCheck?
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Sistem pakar berbasis kecerdasan buatan untuk menganalisis kualitas udara di Kota Sorong.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-8">
+                    <!-- Card 1 -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 p-8 rounded-2xl border border-slate-100 dark:border-slate-600 hover:shadow-lg transition">
+                        <div
+                            class="w-14 h-14 bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-brain text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3">Teknologi AI</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Menggunakan Natural Language Processing (NLP) dan
+                            algoritma Naive Bayes untuk menganalisis kondisi udara.</p>
+                    </div>
+
+                    <!-- Card 2 -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 p-8 rounded-2xl border border-slate-100 dark:border-slate-600 hover:shadow-lg transition">
+                        <div
+                            class="w-14 h-14 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-comments text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3">Input Natural</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Cukup deskripsikan kondisi dengan bahasa
+                            sehari-hari, sistem akan memahami dan mengklasifikasikan.</p>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 p-8 rounded-2xl border border-slate-100 dark:border-slate-600 hover:shadow-lg transition">
+                        <div
+                            class="w-14 h-14 bg-purple-100 dark:bg-purple-900/50 text-purple-600 dark:text-purple-400 rounded-xl flex items-center justify-center mb-6">
+                            <i class="fa-solid fa-chart-pie text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-3">Hasil Akurat</h3>
+                        <p class="text-slate-600 dark:text-slate-400">Memberikan probabilitas dari setiap kategori
+                            kualitas udara beserta saran kesehatan.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CARA KERJA SECTION ================= -->
+        <section id="how-it-works" class="py-20 bg-slate-50 dark:bg-slate-900 transition-colors duration-300">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span
+                        class="inline-block px-4 py-1 bg-green-100 dark:bg-green-900/50 text-green-600 dark:text-green-400 rounded-full text-sm font-semibold mb-4">
+                        <i class="fa-solid fa-cogs mr-1"></i> Cara Kerja
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Bagaimana Sistem
+                        Bekerja?</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Proses analisis dilakukan dalam 3 tahap sederhana
+                    </p>
+                </div>
+
+                <div class="max-w-4xl mx-auto">
+                    <div class="space-y-8">
+                        <!-- Step 1 -->
+                        <div
+                            class="flex gap-6 items-start bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                            <div
+                                class="w-12 h-12 bg-blue-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                1</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">NLP Processing</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Sistem membaca input Anda, melakukan
+                                    <b>Case Folding</b>, <b>Tokenizing</b>, <b>Stopword Removal</b>, dan <b>Stemming</b>
+                                    untuk mengekstrak kata kunci penting.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div
+                            class="flex gap-6 items-start bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                            <div
+                                class="w-12 h-12 bg-green-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                2</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Naive Bayes
+                                    Classification</h3>
+                                <p class="text-slate-600 dark:text-slate-400">Kata kunci yang diekstrak diproses dengan
+                                    algoritma Naive Bayes untuk menghitung probabilitas setiap kategori kualitas udara
+                                    (Baik, Sedang, Tidak Sehat).</p>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div
+                            class="flex gap-6 items-start bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm border border-slate-100 dark:border-slate-700">
+                            <div
+                                class="w-12 h-12 bg-purple-500 text-white rounded-full flex items-center justify-center font-bold text-xl flex-shrink-0">
+                                3</div>
+                            <div>
+                                <h3 class="text-xl font-bold text-slate-800 dark:text-white mb-2">Hasil & Rekomendasi
+                                </h3>
+                                <p class="text-slate-600 dark:text-slate-400">Sistem memilih kategori dengan
+                                    probabilitas tertinggi dan memberikan saran kesehatan yang relevan berdasarkan hasil
+                                    klasifikasi.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= FAQ SECTION ================= -->
+        <section id="faq" class="py-20 bg-white dark:bg-slate-800 transition-colors duration-300">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <span
+                        class="inline-block px-4 py-1 bg-yellow-100 dark:bg-yellow-900/50 text-yellow-600 dark:text-yellow-400 rounded-full text-sm font-semibold mb-4">
+                        <i class="fa-solid fa-question-circle mr-1"></i> FAQ
+                    </span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">Pertanyaan yang
+                        Sering Diajukan</h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Temukan jawaban untuk pertanyaan umum seputar AirCheck
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto space-y-4">
+                    <!-- FAQ Item 1 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Apa itu AirCheck?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">AirCheck adalah sistem pakar berbasis web yang menganalisis kualitas udara
+                                di Kota Sorong menggunakan teknologi Natural Language Processing (NLP) dan algoritma
+                                Naive Bayes. Sistem ini dikembangkan oleh Kelompok 8 Teknik Informatika UNIMUDA Sorong.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 2 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Bagaimana cara menggunakan
+                                AirCheck?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">Cukup deskripsikan kondisi udara di sekitar Anda dengan bahasa sehari-hari
+                                di kolom input. Contoh: "Udara terasa sesak, ada kabut tebal, dan berbau asap." Sistem
+                                akan otomatis menganalisis dan memberikan hasil klasifikasi kualitas udara.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 3 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Apa saja kategori kualitas
+                                udara?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">Terdapat 3 kategori kualitas udara:<br>
+                                <b class="text-green-600 dark:text-green-400">• Baik</b> - Udara bersih dan aman untuk
+                                semua aktivitas.<br>
+                                <b class="text-yellow-600 dark:text-yellow-400">• Sedang</b> - Kualitas udara cukup,
+                                perlu perhatian bagi kelompok sensitif.<br>
+                                <b class="text-red-600 dark:text-red-400">• Tidak Sehat</b> - Udara berbahaya, hindari
+                                aktivitas di luar ruangan.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 4 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Apa itu Naive Bayes?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">Naive Bayes adalah algoritma machine learning yang digunakan untuk
+                                klasifikasi teks. Algoritma ini menghitung probabilitas setiap kategori berdasarkan
+                                kata-kata yang muncul dalam input, lalu memilih kategori dengan probabilitas tertinggi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 5 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Apakah data saya disimpan?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">Tidak. AirCheck tidak menyimpan data input dari pengguna. Semua proses
+                                analisis dilakukan secara real-time dan data tidak disimpan di server setelah sesi
+                                berakhir.</p>
+                        </div>
+                    </div>
+
+                    <!-- FAQ Item 6 -->
+                    <div
+                        class="faq-item bg-slate-50 dark:bg-slate-700 rounded-xl border border-slate-200 dark:border-slate-600 overflow-hidden">
+                        <button onclick="toggleFaq(this)"
+                            class="w-full px-6 py-5 text-left flex justify-between items-center hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                            <span class="font-semibold text-slate-800 dark:text-white">Siapa yang mengembangkan
+                                AirCheck?</span>
+                            <i
+                                class="fa-solid fa-chevron-down text-slate-500 dark:text-slate-400 transition-transform duration-300"></i>
+                        </button>
+                        <div class="faq-answer px-6 text-slate-600 dark:text-slate-400">
+                            <p class="pb-5">AirCheck dikembangkan oleh <b>Kelompok 8</b> Program Studi Teknik
+                                Informatika, Universitas Pendidikan Muhammadiyah (UNIMUDA) Sorong sebagai proyek mata
+                                kuliah tahun 2026.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= TIM PENGEMBANG SECTION ================= -->
+        <section id="team" class="py-20 bg-white dark:bg-slate-800 transition-colors duration-300">
+            <div class="container mx-auto px-6">
+                <!-- Section Header -->
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+                        Tim Pengembang
+                    </h2>
+                    <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                        Mahasiswa Teknik Informatika UNAMIN Sorong yang mengembangkan aplikasi ini
+                    </p>
+                </div>
+
+                <!-- Team Grid - 3 Members -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-4xl mx-auto">
+
+                    <!-- Member 1 - Desyia -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 dark:border-slate-600">
+                        <div
+                            class="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-5 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                            DT
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white">Desyia Tatuhey</h3>
+                    </div>
+
+                    <!-- Member 2 - Nurosida -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 dark:border-slate-600">
+                        <div
+                            class="w-24 h-24 bg-gradient-to-br from-green-500 to-teal-600 rounded-full mx-auto mb-5 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                            NS
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white">Nurosida Sebualamo</h3>
+                    </div>
+
+                    <!-- Member 3 - Yulio -->
+                    <div
+                        class="bg-slate-50 dark:bg-slate-700 rounded-2xl p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 border border-slate-200 dark:border-slate-600">
+                        <div
+                            class="w-24 h-24 bg-gradient-to-br from-orange-500 to-red-600 rounded-full mx-auto mb-5 flex items-center justify-center text-white text-3xl font-bold shadow-lg">
+                            YK
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-800 dark:text-white">Yulio Delvin Kambu</h3>
+                    </div>
+
+                </div>
+
+                <!-- University Badge -->
+                <div class="mt-12 text-center">
+                    <div class="inline-flex items-center gap-3 bg-slate-100 dark:bg-slate-700 px-6 py-3 rounded-full">
+                        <i class="fa-solid fa-graduation-cap text-blue-500 text-xl"></i>
+                        <span class="text-slate-700 dark:text-slate-300 font-medium">
+                            Teknik Informatika - UNAMIN Sorong 2026
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- ================= CTA SECTION ================= -->
+        <section class="py-20 bg-gradient-to-r from-blue-600 to-purple-600">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Siap Mengecek Kualitas Udara?</h2>
+                <p class="text-white/80 mb-8 max-w-xl mx-auto">
+                    Deskripsikan kondisi udara di sekitar Anda dan dapatkan hasil analisis dalam hitungan detik.
+                </p>
+                <a href="/analisis"
+                    class="inline-flex items-center gap-3 bg-white text-blue-600 font-bold py-4 px-10 rounded-xl shadow-lg hover:shadow-xl transition transform hover:-translate-y-1">
+                    <i class="fa-solid fa-play"></i>
+                    <span>Mulai Analisis Sekarang</span>
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer
+        class="bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 transition-colors duration-300">
+        <div class="container mx-auto px-6 py-8">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2">
+                    <div class="bg-blue-500 text-white p-2 rounded-lg">
+                        <i class="fa-solid fa-wind"></i>
+                    </div>
+                    <span class="text-xl font-bold text-blue-600 dark:text-blue-400">AirCheck</span>
+                </div>
+                <p class="text-slate-500 dark:text-slate-400 text-sm text-center">
+                    &copy; 2026 AirCheck - Teknik Informatika UNAMIN Sorong. All rights reserved.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#home" class="text-slate-500 dark:text-slate-400 hover:text-blue-500 transition">
+                        <i class="fa-solid fa-arrow-up"></i> Kembali ke Atas
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+        // Dark Mode Toggle
+        function initTheme() {
+            if (localStorage.getItem('theme') === 'dark' ||
+                (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+            } else {
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        // Initialize theme on load
+        initTheme();
+
+        // Theme toggle buttons
+        document.getElementById('theme-toggle').addEventListener('click', toggleTheme);
+        document.getElementById('theme-toggle-mobile').addEventListener('click', toggleTheme);
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        }
+
+        // FAQ Accordion Toggle
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            const answer = faqItem.querySelector('.faq-answer');
+            const icon = button.querySelector('i');
+
+            // Close all other FAQs
+            document.querySelectorAll('.faq-answer').forEach(a => {
+                if (a !== answer) {
+                    a.classList.remove('open');
+                    a.parentElement.querySelector('button i').style.transform = 'rotate(0deg)';
+                }
+            });
+
+            // Toggle current FAQ
+            answer.classList.toggle('open');
+            icon.style.transform = answer.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+
+        // ============= TYPING ANIMATION FOR DEMO CARD =============
+        const demos = [
+            {
+                text: '"Udara terasa sangat sesak, banyak asap tebal dan kabut pekat di sekitar"',
+                result: 'TIDAK SEHAT',
+                prob: 87.5,
+                color: 'red',
+                icon: 'fa-face-dizzy'
+            },
+            {
+                text: '"Ada sedikit kabut tipis pagi ini, bau kendaraan terasa di jalan raya"',
+                result: 'SEDANG',
+                prob: 72.3,
+                color: 'yellow',
+                icon: 'fa-face-meh'
+            },
+            {
+                text: '"Langit sangat cerah hari ini, udara segar dan sejuk, napas terasa lega"',
+                result: 'BAIK',
+                prob: 91.2,
+                color: 'green',
+                icon: 'fa-face-smile'
+            }
+        ];
+
+        let currentDemo = 0;
+        const typingSpeed = 40; // ms per character
+        const processingTime = 1500; // ms
+        const resultDisplayTime = 3000; // ms
+        const pauseBetweenDemos = 800; // ms
+
+        function typeText(text, element, callback) {
+            element.innerHTML = '<span class="typing-cursor"></span>';
+            let i = 0;
+
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML = text.substring(0, i + 1) + '<span class="typing-cursor"></span>';
+                    i++;
+                    setTimeout(type, typingSpeed);
+                } else {
+                    element.innerHTML = text;
+                    if (callback) callback();
+                }
+            }
+            type();
+        }
+
+        function showProcessing(callback) {
+            const processingSection = document.getElementById('processing-section');
+            processingSection.classList.remove('hidden');
+            setTimeout(callback, processingTime);
+        }
+
+        function showResult(demo, callback) {
+            const resultSection = document.getElementById('result-section');
+            const resultCard = document.getElementById('result-card');
+            const resultIcon = document.getElementById('result-icon');
+            const resultLabel = document.getElementById('result-label');
+            const resultBar = document.getElementById('result-bar');
+            const resultProb = document.getElementById('result-prob');
+
+            // Set colors based on result
+            const colors = {
+                red: {
+                    bg: 'bg-red-50 dark:bg-red-900/30',
+                    border: 'border-red-300 dark:border-red-700',
+                    iconBg: 'bg-red-500',
+                    text: 'text-red-600 dark:text-red-400',
+                    bar: 'bg-red-500'
+                },
+                yellow: {
+                    bg: 'bg-yellow-50 dark:bg-yellow-900/30',
+                    border: 'border-yellow-300 dark:border-yellow-700',
+                    iconBg: 'bg-yellow-500',
+                    text: 'text-yellow-600 dark:text-yellow-400',
+                    bar: 'bg-yellow-500'
+                },
+                green: {
+                    bg: 'bg-green-50 dark:bg-green-900/30',
+                    border: 'border-green-300 dark:border-green-700',
+                    iconBg: 'bg-green-500',
+                    text: 'text-green-600 dark:text-green-400',
+                    bar: 'bg-green-500'
+                }
+            };
+
+            const c = colors[demo.color];
+
+            // Reset and apply new classes
+            resultCard.className = `p-4 rounded-xl border-2 transition-all duration-300 ${c.bg} ${c.border}`;
+            resultIcon.className = `w-14 h-14 rounded-full flex items-center justify-center text-white text-xl ${c.iconBg}`;
+            resultIcon.innerHTML = `<i class="fa-solid ${demo.icon}"></i>`;
+            resultLabel.className = `font-bold text-xl ${c.text}`;
+            resultLabel.textContent = demo.result;
+            resultBar.className = `h-2.5 rounded-full transition-all duration-1000 ${c.bar}`;
+            resultBar.style.width = '0%';
+            resultProb.className = `text-sm font-semibold ${c.text}`;
+            resultProb.textContent = demo.prob + '%';
+
+            resultSection.classList.remove('hidden');
+
+            // Animate progress bar
+            setTimeout(() => {
+                resultBar.style.width = demo.prob + '%';
+            }, 100);
+
+            setTimeout(callback, resultDisplayTime);
+        }
+
+        function resetDemo() {
+            document.getElementById('typing-input').innerHTML = '<span class="typing-cursor"></span>';
+            document.getElementById('processing-section').classList.add('hidden');
+            document.getElementById('result-section').classList.add('hidden');
+        }
+
+        function runDemo() {
+            const demo = demos[currentDemo];
+
+            resetDemo();
+
+            setTimeout(() => {
+                typeText(demo.text, document.getElementById('typing-input'), () => {
+                    showProcessing(() => {
+                        showResult(demo, () => {
+                            currentDemo = (currentDemo + 1) % demos.length;
+                            setTimeout(runDemo, pauseBetweenDemos);
+                        });
+                    });
+                });
+            }, pauseBetweenDemos);
+        }
+
+        // Start the demo animation
+        runDemo();
+    </script>
+</body>
+
+</html>

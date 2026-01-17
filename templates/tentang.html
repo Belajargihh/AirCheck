@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tentang AirCheck - Sistem Pakar Kualitas Udara">
+    <title>Tentang - AirCheck</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="cloud cloud-1"></div>
+        <div class="cloud cloud-2"></div>
+        <div class="cloud cloud-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="/" class="nav-logo">
+                <span class="logo-icon">🌤️</span>
+                <span class="logo-text">AirCheck</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="/" class="nav-link">Beranda</a></li>
+                <li><a href="/analisis" class="nav-link">Analisis</a></li>
+                <li><a href="/tentang" class="nav-link active">Tentang</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- About Section -->
+    <main class="about-page">
+        <div class="about-container">
+            <div class="about-header">
+                <h1>📖 Tentang AirCheck</h1>
+                <p>Sistem Pakar Kualitas Udara berbasis Artificial Intelligence</p>
+            </div>
+
+            <!-- System Overview -->
+            <section class="about-section">
+                <h2>🎯 Apa itu AirCheck?</h2>
+                <p>
+                    AirCheck adalah sistem pakar berbasis web yang dirancang untuk membantu masyarakat
+                    menganalisis dan memahami kondisi kualitas udara di sekitar mereka. Sistem ini
+                    menggunakan teknologi <strong>Artificial Intelligence (AI)</strong> untuk memberikan
+                    hasil analisis yang akurat dan saran kesehatan yang relevan.
+                </p>
+            </section>
+
+            <!-- Technology Section -->
+            <section class="about-section">
+                <h2>🛠️ Teknologi yang Digunakan</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">🧠</div>
+                        <h3>Naive Bayes</h3>
+                        <p>Algoritma machine learning untuk klasifikasi teks berdasarkan probabilitas</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">📝</div>
+                        <h3>Natural Language Processing</h3>
+                        <p>Pemrosesan bahasa alami untuk menganalisis deskripsi kondisi udara</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🐍</div>
+                        <h3>Python Flask</h3>
+                        <p>Framework web untuk membangun aplikasi yang responsif dan cepat</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">📊</div>
+                        <h3>Scikit-Learn</h3>
+                        <p>Library machine learning untuk training dan prediksi model AI</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works -->
+            <section class="about-section">
+                <h2>⚙️ Cara Kerja Sistem</h2>
+                <div class="workflow">
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Input Deskripsi</h4>
+                            <p>Pengguna menjawab pertanyaan tentang kondisi udara (kabut, bau, pernapasan)</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Preprocessing NLP</h4>
+                            <p>Teks diproses: case folding, tokenizing, stopword removal, stemming</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Klasifikasi AI</h4>
+                            <p>Model Naive Bayes menganalisis dan mengklasifikasikan kualitas udara</p>
+                        </div>
+                    </div>
+                    <div class="workflow-arrow">→</div>
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Hasil & Saran</h4>
+                            <p>Sistem menampilkan status kualitas udara dan rekomendasi kesehatan</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Classification -->
+            <section class="about-section">
+                <h2>🏷️ Kategori Kualitas Udara</h2>
+                <div class="classification-grid">
+                    <div class="classification-item good">
+                        <div class="class-header">
+                            <span class="class-icon">✅</span>
+                            <h4>Baik</h4>
+                        </div>
+                        <p>Udara bersih dan sehat, aman untuk semua aktivitas outdoor</p>
+                    </div>
+                    <div class="classification-item moderate">
+                        <div class="class-header">
+                            <span class="class-icon">⚠️</span>
+                            <h4>Sedang</h4>
+                        </div>
+                        <p>Kualitas udara cukup, perlu perhatian bagi kelompok sensitif</p>
+                    </div>
+                    <div class="classification-item unhealthy">
+                        <div class="class-header">
+                            <span class="class-icon">🚨</span>
+                            <h4>Tidak Sehat</h4>
+                        </div>
+                        <p>Kualitas udara buruk, berbahaya bagi kesehatan</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Team -->
+            <section class="about-section team-section">
+                <h2>👥 Tim Pengembang</h2>
+                <div class="team-info">
+                    <p><strong>Kelompok 8</strong></p>
+                    <p>Mata Kuliah: Sistem Pakar</p>
+                    <p>Metode: Extreme Programming (XP)</p>
+                </div>
+            </section>
+
+            <div class="about-actions">
+                <a href="/analisis" class="btn btn-primary">
+                    <span class="btn-icon">🔍</span>
+                    Mulai Analisis
+                </a>
+                <a href="/" class="btn btn-secondary">
+                    <span class="btn-icon">🏠</span>
+                    Ke Beranda
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p>© 2024 AirCheck - Sistem Pakar Kualitas Udara</p>
+            <p class="footer-credit">Kelompok 8 | Metode Naive Bayes + NLP</p>
+        </div>
+    </footer>
+</body>
+
+</html>
