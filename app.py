@@ -215,16 +215,17 @@ def tentang():
     return render_template('tentang.html')
 
 
+# Load model saat import (untuk gunicorn)
+if not load_model():
+    print("\n" + "=" * 60)
+    print("PERINGATAN: Model belum tersedia!")
+    print("Jalankan perintah berikut untuk melatih model:")
+    print("  python model_training.py")
+    print("=" * 60 + "\n")
+
 if __name__ == '__main__':
-    # Coba load model saat startup
-    if not load_model():
-        print("\n" + "=" * 60)
-        print("PERINGATAN: Model belum tersedia!")
-        print("Jalankan perintah berikut untuk melatih model:")
-        print("  python model_training.py")
-        print("=" * 60 + "\n")
-    
-    # Jalankan Flask server
-    print("\n[INFO] Memulai server Flask...")
-    print("[INFO] Buka browser dan akses: http://localhost:5000")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Jalankan Flask server (untuk development)
+    port = int(os.environ.get('PORT', 5000))
+    print(f"\n[INFO] Memulai server Flask di port {port}...")
+    print(f"[INFO] Buka browser dan akses: http://localhost:{port}")
+    app.run(debug=True, host='0.0.0.0', port=port)
