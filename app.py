@@ -144,6 +144,8 @@ def get_saran(kualitas):
 
 
 @app.route('/')
+@app.route('/api/index')
+@app.route('/api/index.py')
 def index():
     """
     Halaman Beranda
@@ -152,6 +154,8 @@ def index():
 
 
 @app.route('/analisis')
+@app.route('/api/index/analisis')
+@app.route('/api/index.py/analisis')
 def analisis():
     """
     Halaman Form Analisis
@@ -160,6 +164,8 @@ def analisis():
 
 
 @app.route('/predict', methods=['POST'])
+@app.route('/api/index/predict', methods=['POST'])
+@app.route('/api/index.py/predict', methods=['POST'])
 def predict():
     """
     Endpoint untuk melakukan prediksi kualitas udara (returns JSON)
@@ -215,11 +221,27 @@ def predict():
 
 
 @app.route('/tentang')
+@app.route('/api/index/tentang')
+@app.route('/api/index.py/tentang')
 def tentang():
     """
     Halaman Tentang
     """
     return render_template('tentang.html')
+
+
+@app.errorhandler(404)
+def not_found(e):
+    """
+    Fallback jika path diarahkan secara berbeda oleh serverless hosting
+    """
+    path = request.path
+    if '/analisis' in path:
+        return render_template('analisis.html')
+    elif '/tentang' in path:
+        return render_template('tentang.html')
+    return render_template('index.html')
+
 
 
 # Load model saat import (untuk gunicorn)
