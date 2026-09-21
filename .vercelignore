@@ -1,0 +1,20 @@
+# Data & Documents not needed in runtime
+Data/
+Similarity/
+*.xlsx
+*.csv
+*.md
+
+# Offline scripts
+model_training.py
+generate_similarity_excel.py
+
+# Other deployment configs
+railway.toml
+Procfile
+
+# Python artifacts & caches
+__pycache__/
+*.pyc
+.git
+.gitignore

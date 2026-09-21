@@ -11,11 +11,18 @@ import random
 # Import modul NLP
 from nlp_processor import preprocess
 
-app = Flask(__name__)
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Path ke model dan vectorizer
-MODEL_PATH = 'model_nb.pkl'
-VECTORIZER_PATH = 'vectorizer.pkl'
+app = Flask(
+    __name__,
+    template_folder=os.path.join(BASE_DIR, 'templates'),
+    static_folder=os.path.join(BASE_DIR, 'static')
+)
+
+# Path ke model dan vectorizer (menggunakan path absolut agar aman di lingkungan serverless)
+MODEL_PATH = os.path.join(BASE_DIR, 'model_nb.pkl')
+VECTORIZER_PATH = os.path.join(BASE_DIR, 'vectorizer.pkl')
+
 
 # Load model dan vectorizer saat startup
 model = None
