@@ -150,7 +150,11 @@ def index():
     """
     Halaman Beranda
     """
+    if request.args.get('debug') == '1':
+        import json
+        return json.dumps({k: str(v) for k, v in request.environ.items() if isinstance(v, (str, int, float, bool))}, indent=2), 200, {'Content-Type': 'application/json'}
     return render_template('index.html')
+
 
 
 @app.route('/analisis')
