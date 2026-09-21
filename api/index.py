@@ -1,6 +1,6 @@
 import sys
 import os
-import json
+from urllib.parse import parse_qs
 
 # Pastikan root direktori masuk ke sys.path agar modul app dan nlp_processor dapat diimpor
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -10,33 +10,28 @@ from app import app as flask_app
 
 class VercelPathFixer:
     """
-    WSGI Middleware untuk menormalkan PATH_INFO jika Vercel
-    meneruskan prefix /api/index atau /api/index.py dari rewrite rules.
+    WSGI Middleware untuk merekonstruksi PATH_INFO yang tepat
+    dari parameter rewrite Vercel (__path=$1).
     """
     def __init__(self, wsgi_app):
         self.wsgi_app = wsgi_app
 
     def __call__(self, environ, start_response):
-        # Endpoint debug cepat untuk melihat environment WSGI di Vercel
-        path = environ.get('PATH_INFO', '')
-        if '/_env_debug' in path:
-            start_response('200 OK', [('Content-Type', 'application/json')])
-            data = {k: str(v) for k, v in environ.items() if isinstance(v, (str, int, float, bool))}
-            return [json.dumps(data, indent=2).encode('utf-8')]
-
-        # Cek jika Vercel menyertakan path asli pada HTTP header
-        matched_path = environ.get('HTTP_X_MATCHED_PATH') or environ.get('HTTP_X_NOW_ROUTE_MATCHES')
-        if matched_path and not matched_path.startswith('/api/'):
-            environ['PATH_INFO'] = matched_path
-            return self.wsgi_app(environ, start_response)
-
-        for prefix in ['/api/index.py', '/api/index']:
-            if path == prefix:
+        query = environ.get('QUERY_STRING', '')
+        if '__path=' in query:
+            params = parse_qs(query)
+            path_val = params.get('__path', [''])[0]
+            if path_val:
+                environ['PATH_INFO'] = '/' + path_val.lstrip('/')
+            else:
                 environ['PATH_INFO'] = '/'
-                break
-            elif path.startswith(prefix + '/'):
-                environ['PATH_INFO'] = path[len(prefix):]
-                break
+            
+            # Bersihkan __path dari QUERY_STRING agar tidak mengganggu request.args pengguna
+            query_parts = [p for p in query.split('&') if not p.startswith('__path=')]
+            environ['QUERY_STRING'] = '&'.join(query_parts)
+        elif environ.get('PATH_INFO') in ('/api/index.py', '/api/index'):
+            environ['PATH_INFO'] = '/'
+
         return self.wsgi_app(environ, start_response)
 
 
