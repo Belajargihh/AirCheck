@@ -144,11 +144,14 @@ def get_saran(kualitas):
 
 
 @app.route('/')
+@app.route('/api/index')
+@app.route('/api/index.py')
 def index():
     """
     Halaman Beranda
     """
     return render_template('index.html')
+
 
 
 
